@@ -560,34 +560,29 @@ public class Camera {
 
               Image img = reader.acquireLatestImage();
               if (img == null) return;
-//                if(_isDetecting){
-//                    img.close();
-//                    return;
-//                }
-//                _isDetecting = true;
-//
-              i=i+1;
-              if(i<20){
+              if(Singleton.getInstance().isDetecting){
                 img.close();
                 return;
               }
-              i=0;
               byte[] bytes= YUV_420_888toNV21(img);
-              ExecutorService service = Executors.newFixedThreadPool(10);
-
-
               ImageProcessThread a = new ImageProcessThread(bytes, img.getWidth(), img.getHeight(), imageStreamSink);
               Thread b = new Thread(a);
               b.start();
+
               img.close();
 //              YuvImage img2 = new YuvImage(bytes, ImageFormat.NV21, img.getWidth(), img.getHeight(), null);
+//
 //              ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 //              Rect  cropRect = new Rect(0, 0, img.getWidth(), img.getHeight());
 //              img2.compressToJpeg(cropRect, 100, buffer);
 //              byte[] jpegData = buffer.toByteArray();
-////
+//              try {
+//                buffer.close();
+//              } catch (IOException e) {
+//                e.printStackTrace();
+//              }
 //              Bitmap bitmap = BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length);
-//
+////
 //              Mat mat = new Mat();
 //              Utils.bitmapToMat(bitmap, mat);
 //
@@ -762,6 +757,10 @@ class ImageProcessThread implements  Runnable  {
     }
 
     public void run() {
+        if(Singleton.getInstance().isDetecting){
+          return;
+        }
+        Singleton.getInstance().isDetecting = true;
         YuvImage img2 = new YuvImage(bytes, ImageFormat.NV21, width, height, null);
 
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -785,5 +784,29 @@ class ImageProcessThread implements  Runnable  {
       handler.post(() -> {
         imageStreamSink.success(b);
       });
+      Singleton.getInstance().isDetecting = false;
     }
+}
+class Singleton
+{
+  // static variable single_instance of type Singleton
+  private static Singleton single_instance = null;
+
+  // variable of type String
+  public Boolean isDetecting;
+
+  // private constructor restricted to this class itself
+  private Singleton()
+  {
+    isDetecting=false;
+  }
+
+  // static method to create instance of Singleton class
+  public static Singleton getInstance()
+  {
+    if (single_instance == null)
+      single_instance = new Singleton();
+
+    return single_instance;
+  }
 }
