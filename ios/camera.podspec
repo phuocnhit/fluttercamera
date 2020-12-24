@@ -19,8 +19,18 @@ A Flutter plugin to use the camera from your Flutter app.
 
   s.platform = :ios, '8.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
+  
+  s.preserve_paths = 'opencv2.framework' 
 
-  s.test_spec 'Tests' do |test_spec|
-    test_spec.source_files = 'Tests/**/*'
-  end
+  # telling linker to include opencv2 framework
+  s.xcconfig = { 'OTHER_LDFLAGS' => '-framework opencv2' }
+
+  # including OpenCV framework
+  s.vendored_frameworks = 'opencv2.framework' 
+
+  # including native framework
+  s.frameworks = 'Foundation', 'UIKit', 'AVFoundation','Accelerate','CoreMedia','CoreMotion'
+
+  # including C++ library
+  s.library = 'c++'
 end

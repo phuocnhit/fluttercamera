@@ -7,7 +7,7 @@
 #import <Accelerate/Accelerate.h>
 #import <CoreMotion/CoreMotion.h>
 #import <libkern/OSAtomic.h>
-
+#include <opencv2/opencv.hpp>
 static FlutterError *getFlutterError(NSError *error) {
   return [FlutterError errorWithCode:[NSString stringWithFormat:@"Error %d", (int)error.code]
                              message:error.localizedDescription
@@ -485,7 +485,7 @@ FourCharCode const videoFormat = kCVPixelFormatType_32BGRA;
 - (CMSampleBufferRef)adjustTime:(CMSampleBufferRef)sample by:(CMTime)offset CF_RETURNS_RETAINED {
   CMItemCount count;
   CMSampleBufferGetSampleTimingInfoArray(sample, 0, nil, &count);
-  CMSampleTimingInfo *pInfo = malloc(sizeof(CMSampleTimingInfo) * count);
+  CMSampleTimingInfo *pInfo = (CMSampleTimingInfo*)malloc(sizeof(CMSampleTimingInfo) * count);
   CMSampleBufferGetSampleTimingInfoArray(sample, count, pInfo, &count);
   for (CMItemCount i = 0; i < count; i++) {
     pInfo[i].decodeTimeStamp = CMTimeSubtract(pInfo[i].decodeTimeStamp, offset);
