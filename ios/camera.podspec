@@ -1,36 +1,3 @@
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-Pod::Spec.new do |s|
-  s.name             = 'camera'
-  s.version          = '0.0.1'
-  s.summary          = 'Flutter Camera'
-  s.description      = <<-DESC
-A Flutter plugin to use the camera from your Flutter app.
-                       DESC
-  s.homepage         = 'https://github.com/flutter/plugins'
-  s.license          = { :type => 'BSD', :file => '../LICENSE' }
-  s.author           = { 'Flutter Dev Team' => 'flutter-dev@googlegroups.com' }
-  s.source           = { :http => 'https://github.com/flutter/plugins/tree/master/packages/camera' }
-  s.documentation_url = 'https://pub.dev/packages/camera'
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
-  s.dependency 'Flutter'
-
-  s.platform = :ios, '8.0'
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
-  
-  s.preserve_paths = 'opencv2.framework' 
-
-  # telling linker to include opencv2 framework
-  s.xcconfig = { 'OTHER_LDFLAGS' => '-framework opencv2' }
-
-  # including OpenCV framework
-  s.vendored_frameworks = 'opencv2.framework' 
-
-  # including native framework
-  s.frameworks = 'Foundation', 'UIKit', 'AVFoundation','Accelerate','CoreMedia','CoreMotion'
-
-  # including C++ library
-  s.library = 'c++'
-end
+version https://git-lfs.github.com/spec/v1
+oid sha256:41126608726b39cf615e79a81a93c8a12f2fc149afeb386ea22b00d3f515368c
+size 1300
