@@ -38,9 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The Xfeatures2d module
  *
- * Member classes: `FREAK`, `StarDetector`, `BriefDescriptorExtractor`, `LUCID`, `LATCH`, `DAISY`, `MSDDetector`, `VGG`, `BoostDesc`, `PCTSignatures`, `PCTSignaturesSQFD`, `HarrisLaplaceFeatureDetector`, `AffineFeature2D`, `TBMR`, `SURF`
+ * Member classes: `FREAK`, `StarDetector`, `BriefDescriptorExtractor`, `LUCID`, `LATCH`, `BEBLID`, `DAISY`, `MSDDetector`, `VGG`, `BoostDesc`, `PCTSignatures`, `PCTSignaturesSQFD`, `HarrisLaplaceFeatureDetector`, `AffineFeature2D`, `TBMR`, `SURF`
  *
- * Member enums: `NormalizationType`, `DistanceFunction`, `PointDistribution`, `SimilarityFunction`, `KeypointLayout`
+ * Member enums: `BeblidSize`, `NormalizationType`, `DistanceFunction`, `PointDistribution`, `SimilarityFunction`, `KeypointLayout`
  */
 CV_EXPORTS @interface Xfeatures2d : NSObject
 
